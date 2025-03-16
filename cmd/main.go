@@ -19,7 +19,7 @@ func main() {
 	logger := internal.NewLogger(
 		config.Logging.Enabled,
 		config.Logging.Level,
-		config.Logging.Output.File,
+		config.Logging.File,
 	)
 
 	hosts, err := createHosts(config, logger)

@@ -41,7 +41,7 @@
   ],
   "logging": {
     "enabled": true,
-    "level": "info",
+    "level": "error",
     "file": "./logs/load_balancer.log"
   }
 }

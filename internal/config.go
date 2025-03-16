@@ -16,13 +16,12 @@ const (
 )
 
 type LogOutputConfig struct {
-	File string `json:"file"`
 }
 
 type LoggingConfig struct {
-	Enabled bool            `json:"enabled"`
-	Level   LogLevel        `json:"level"`
-	Output  LogOutputConfig `json:"output"`
+	Enabled bool     `json:"enabled"`
+	Level   LogLevel `json:"level"`
+	File    string   `json:"file"`
 }
 
 type HostConfig struct {

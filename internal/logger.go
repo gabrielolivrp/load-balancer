@@ -3,6 +3,7 @@ package internal
 import (
 	"log"
 	"os"
+	"path/filepath"
 )
 
 type LogLevel string
@@ -24,18 +25,7 @@ type logger struct {
 }
 
 func NewLogger(enabled bool, level LogLevel, outputFile string) *logger {
-	var output *os.File
-
-	if outputFile != "" {
-		var err error
-		output, err = os.OpenFile(outputFile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
-		if err != nil {
-			panic(err)
-		}
-	} else {
-		output = os.Stdout
-	}
-
+	output := getLogOutput(outputFile)
 	return &logger{
 		enabled: enabled,
 		level:   level,
@@ -53,4 +43,25 @@ func (l *logger) Errorf(format string, args ...interface{}) {
 	if l.enabled {
 		l.logger.Printf("[ERROR] "+format, args...)
 	}
+}
+
+func getLogOutput(outputFile string) *os.File {
+	if outputFile == "" {
+		return os.Stdout
+	}
+
+	if _, err := os.Stat(outputFile); os.IsExist(err) {
+		panic(err)
+	}
+
+	if err := os.MkdirAll(filepath.Dir(outputFile), 0770); err != nil {
+		panic(err)
+	}
+
+	output, err := os.OpenFile(outputFile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+	if err != nil {
+		panic(err)
+	}
+
+	return output
 }
