@@ -1,0 +1,47 @@
+{
+  "service": {
+    "name": "my-load-balancer",
+    "listen": {
+      "port": 8000,
+      "protocol": "http"
+    }
+  },
+  "load_balancing": {
+    "algorithm": "weighted_round_robin",
+    "connection_timeout": 10
+  },
+  "health_checks": {
+    "endpoint": "/health",
+    "interval": 5,
+    "timeout": 10,
+    "unhealthy_threshold": 3,
+    "healthy_threshold": 2
+  },
+  "hosts": [
+    {
+      "address": "127.0.0.1",
+      "port": 3000,
+      "weight": 2
+    },
+    {
+      "address": "127.0.0.1",
+      "port": 3001,
+      "weight": 3
+    },
+    {
+      "address": "127.0.0.1",
+      "port": 3002,
+      "weight": 5
+    },
+    {
+      "address": "127.0.0.1",
+      "port": 3003,
+      "weight": 3
+    }
+  ],
+  "logging": {
+    "enabled": true,
+    "level": "info",
+    "file": "./logs/load_balancer.log"
+  }
+}
