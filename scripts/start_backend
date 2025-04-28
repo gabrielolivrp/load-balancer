@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PORT=3000 node ./examples/api_example.js &
-PORT=3001 node ./examples/api_example.js &
-PORT=3002 node ./examples/api_example.js &
+PORT=3000 node ./examples/backend_example.js &
+PORT=3001 node ./examples/backend_example.js &
+PORT=3002 node ./examples/backend_example.js &
 wait
